@@ -1,0 +1,124 @@
+
+
+             VPC  = Virtual Private Cloud
+
+ VPC Creation 
+======================
+       User creating the Private Network inside AWS Region
+       VPC Provides the Network Connnection to the That Particular Region
+       VPC can be created via AWS GUI,AWS CLI, AWS SDK Methods
+       Per region we can create 5 vpc maxumum
+       VPC are 2 Types: Default VPC and Custom VPC
+       Default VPC Created and attached by the AWS itself in the All the Regions
+       Custom VPC Created by the User Manually 
+       Default-VPC can be deleted and restored
+       Custom-VPC once deleted we cant restore
+       If the resources are running under the VPC we cant delete the VPC, If we to delete the VPC first delete the resources are running under the VPC
+       VPC are created via Ipv4/Ipv6 Addressing Structure
+       VPC are created as Ipv4 Addressing Structure only the Private ip addressing are Allowed to create the VPC (10.0.0.0/172.16.0.0/192.168.0.0)
+       VPC subnets are created via CIDR Addressing Calculations (subneeting)
+       VPC subnets are Two types (Private Subnets,Public Subnets)
+       Private Subnet means the traffic will not routable or reachable to internet Access (Local Access)
+       Public Subnet Means the Traffic will reachable or routable to the Internet Access (Global Access)
+       As subnets are 2 types we have Route Table Also Two Types (Public-RT/Private-RT)
+       All subnets should be connected with via Route table
+       VPC subnet traffic must redirect to the Route tables
+       All subnet traffic will go the Route Table
+       Route table decides which subnet have to go Global Access and Which Subnet have to go Local Access
+       We have to associate the subnets to the Route table
+       Internet Gateway is a Process to provide the internet access to the Public-RT
+       Internet Gateway do the NAT Process and Provide Internet access to the Public ip EC2 Servers
+       
+   VPC Conditions
+=======================
+
+       If the EC2 Machine have the Public ip attached but No Internet Gateway This means its a Private 
+       if the EC2 Machine have the No Public ip attached but it have Internet Gateway Attached also this means its a Private
+       if the EC2 Server Have the Public ip and Internet Gateway Attached this means its a Public
+   
+    Public ip Address
+=========================
+
+       General Public ip address: This General Public ip is a temp address and its a free public ip no cost
+                                  General Public ip by default we can enable for all the subnets under the VPC
+
+       Elastic ip address: This Method of the Public ip address is Permanent Public ip to the EC2 Server This is Charged Per hour
+                           This EIP will not be given by the AWS Automatically. User have to request and get the EIP from the AWS which is charged per hour
+
+
+    VPC Rules
+===========================
+
+       Per VPC we have seperate Internet Gateway
+       One Internet Gateway cant be shared between 2 vpc
+       Each subnet can have the seperate RT
+       10 Subnets we can have One RT
+       One VPC Cant Communicate with other VPC 
+       iF 2 VPC want to communicate with each other we need establish peering connections or Via Transist Gateway 
+   
+
+  VPC Security
+=============================
+
+     VPC Have 2 Firewalls to protect the EC2 Servers from the Attacks
+     1) NACL (Network Access Control List or Subnet Level Firewall)
+        Allow/Deny Rules
+        NACL will allow the Traffic based on the Hirerchial order (40,30,20,10   -  10,20,30,40)
+        Blocking the Complete subnet of the VPC 
+
+     2) Security Groups (Instance Level Firewall)
+        Security Groups Have no Deny Rules it have allow rules
+        Blocks the Traffic at the EC2 Instance Level
+        1 instance must have one sg Attached
+        1 instance can be connected to 5 Sg
+        SG will follow the Rules of the NACL 
+
+ 
+ How The Traffic Flow Comes to the VPC
+=============================================
+  
+     1) Traffic come to (Internet Gateway) -------------> Blocking
+     2) Traffic come to (NACL) ---------------> Blocking
+     3) Traffic come to (SG) ---------------> Blocking
+     4) Traffic go the EC2 Server
+
+
+Public Ip And Private Ip
+=============================================
+
+  Public Ip  
+  
+     Traffic comes from the Internet Network
+     Public ip are registered Ip address
+     Public ip are charged
+     Public ip brings outside traffic to the Machine
+
+  Private Ip
+
+     Traffic will route internally
+     Its secure
+     EC2 Server will get the Private ip from the VPC subnet
+     Ec2 Server cant be without Private ip but Ec2 Server can be without public ip
+     Private ip are Free
+     
+
+  Private Ip Working Process
+=================================
+ 
+   VPC ----> Subnets ------> RT ---> ---> NACL -----> SG ----> Internet Gateway -------------> Internet Access
+(10.0.0.0/26) S1/S2/S3      s1/s2/s3
+                           Associated           
+  
+   
+       
+       
+       
+
+    
+
+
+      
+
+   
+       
+       
